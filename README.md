@@ -38,5 +38,5 @@ This project focuses on 3D printed products with properties like category, name,
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/3d-print-catalog.git
-   cd 3d-print-catalog
+   git clone https://github.com/DavCoder22/catalog-domain.git
+   cd catalog-domain
