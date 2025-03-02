@@ -8,7 +8,7 @@ The **3D Print Catalog Microservices** project is a scalable, microservices-base
 
 This project focuses on 3D printed products with properties like category, name, material, object details, and price. It follows a layered architecture with an API Gateway, Load Balancer, Auto Scaling Group, and separate services for catalog management (REST), recommendations (Event-Driven), and search (GraphQL). See the architecture diagram below:
 
-![Architecture Diagram](architecture_diagram.png) <!-- Asegúrate de subir tu diagrama como un archivo PNG o similar -->
+![Architecture Diagram](catalog_diagram.jpg) <!-- Asegúrate de subir tu diagrama como un archivo PNG o similar -->
 
 ## Features 🚀
 
