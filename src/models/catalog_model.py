@@ -1,8 +1,8 @@
-# catalog-domain/src/models/catalog_model.py
-from pymongo import MongoClient
+from pymongo import MongoClient, ReturnDocument
 from config.dev_config import MONGO_URI
 from bson import ObjectId
 
+# Conectar a la base de datos
 client = MongoClient(MONGO_URI)
 db = client.catalog_db
 catalog_collection = db.catalog
@@ -19,6 +19,15 @@ class CatalogModel:
 
     @staticmethod
     def add_catalog(catalog_data):
+        # Verificar si la colección está vacía
+        if catalog_collection.count_documents({}) == 0:
+            # Reiniciar el contador si la colección está vacía
+            counter_collection.update_one(
+                {"_id": "order_number"},
+                {"$set": {"value": 0}},
+                upsert=True
+            )
+
         # Obtener el siguiente número de pedido
         order_number = CatalogModel.get_next_order_number()
         catalog_data["idProducto"] = f"P{str(order_number).zfill(3)}"
@@ -40,6 +49,15 @@ class CatalogModel:
             {"_id": "order_number"},
             {"$inc": {"value": 1}},
             upsert=True,
-            return_document=True
+            return_document=ReturnDocument.AFTER
         )
         return counter["value"]
+
+    @staticmethod
+    def reset_order_number():
+        # Reiniciar el contador a 0
+        counter_collection.update_one(
+            {"_id": "order_number"},
+            {"$set": {"value": 0}},
+            upsert=True
+        )

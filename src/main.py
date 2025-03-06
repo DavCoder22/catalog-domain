@@ -1,21 +1,22 @@
 # catalog-domain/src/main.py
+from src.routes.catalog_routes import router as catalog_router
+from src.routes.search_routes import create_app
 from fastapi import FastAPI
-from .routes.catalog_routes import router as catalog_routes
 from fastapi.middleware.cors import CORSMiddleware
 
-app = FastAPI()
+app = create_app()
 
 # Configurar CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Permitir todos los orígenes
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Permitir todos los métodos
-    allow_headers=["*"],  # Permitir todos los headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-# Incluir el router de catálogo
-app.include_router(catalog_routes, prefix="/api")
+# Incluir los routers
+app.include_router(catalog_router, prefix="/api")
 
 if __name__ == "__main__":
     import uvicorn
