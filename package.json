@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "graphql": "^15.10.1",
+    "neo4j-driver": "^5.28.1",
+    "neo4j-graphql-js": "^2.19.4"
+  }
+}

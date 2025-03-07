@@ -15,7 +15,8 @@ class CatalogModel:
 
     @staticmethod
     def get_catalog_by_id(catalog_id):
-        return catalog_collection.find_one({"_id": ObjectId(catalog_id)})
+        # Buscar por el campo 'idProducto' si estás usando IDs personalizados
+        return catalog_collection.find_one({"idProducto": catalog_id})
 
     @staticmethod
     def add_catalog(catalog_data):
@@ -36,11 +37,11 @@ class CatalogModel:
 
     @staticmethod
     def update_catalog(catalog_id, updated_data):
-        return catalog_collection.update_one({"_id": ObjectId(catalog_id)}, {"$set": updated_data})
+        return catalog_collection.update_one({"idProducto": catalog_id}, {"$set": updated_data})
 
     @staticmethod
     def delete_catalog(catalog_id):
-        return catalog_collection.delete_one({"_id": ObjectId(catalog_id)})
+        return catalog_collection.delete_one({"idProducto": catalog_id})
 
     @staticmethod
     def get_next_order_number():

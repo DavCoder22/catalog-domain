@@ -1,10 +1,13 @@
-# catalog-domain/src/controllers/catalog_controller.py
 from flask import Blueprint, jsonify, request
 from flask_cors import CORS
 from src.services.catalog_service import CatalogService
+from src.services.recommendation_service import RecommendationService
 
 catalog_blueprint = Blueprint('catalog', __name__)
 CORS(catalog_blueprint)  # Habilitar CORS para este blueprint
+
+# Inicializar el servicio de recomendaciones
+recommendation_service = RecommendationService()
 
 @catalog_blueprint.route('/catalog', methods=['GET'])
 def get_all_catalogs():
@@ -15,6 +18,9 @@ def get_all_catalogs():
 def get_catalog_by_id(catalog_id):
     catalog = CatalogService.get_catalog_by_id(catalog_id)
     if catalog:
+        # Obtener recomendaciones para el producto
+        recommendations = recommendation_service.get_recommendations(catalog_id)
+        catalog["recommendations"] = recommendations
         return jsonify(catalog), 200
     return jsonify({"error": "Catalog not found"}), 404
 
