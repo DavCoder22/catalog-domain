@@ -12,6 +12,11 @@ class CatalogService:
         return self.model.get_item_by_id(item_id)
 
     def add_item(self, item):
+        # Contar el número de artículos existentes
+        current_count = self.model.count_items()
+        # Generar el nuevo idProducto
+        item['idProducto'] = f"P{str(current_count + 1).zfill(3)}"
+        # Agregar el artículo con el nuevo idProducto
         return self.model.add_item(item)
 
     def update_item(self, item_id, updated_fields):

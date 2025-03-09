@@ -30,3 +30,6 @@ class CatalogModel:
     def delete_item(self, item_id):
         result = self.collection.delete_one({'_id': ObjectId(item_id)})
         return result.deleted_count > 0
+
+    def count_items(self):
+        return self.collection.count_documents({})

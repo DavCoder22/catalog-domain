@@ -38,13 +38,15 @@ class TestCatalogService(unittest.TestCase):
 
     def test_add_item(self):
         # Configurar el comportamiento esperado del mock
+        self.mock_model.count_items.return_value = 0  # Simular que no hay artículos existentes
         self.mock_model.add_item.return_value = '1'
 
         # Llamar al método que estamos probando
         item_id = self.service.add_item({'name': 'New Item'})
 
         # Verificar el resultado
-        self.mock_model.add_item.assert_called_with({'name': 'New Item'})
+        expected_item = {'name': 'New Item', 'idProducto': 'P001'}
+        self.mock_model.add_item.assert_called_with(expected_item)
         self.assertEqual(item_id, '1')
 
     def test_update_item(self):
